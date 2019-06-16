@@ -27,7 +27,15 @@
 {% load static %}
 {% if object %}
 <h2>{{ object.item_name }}</h2>
-<img src ="{% static object.item_main_photo_path %} "/>
+<!--How to load in static-->
+<img src="{% static object.item_main_photo_path %} "/>
 {% endif %}
+
+<h2>Uploaded image</h2>
+<!--Uplod from field-->
+<img src="{{ object.item_main_photo.url }}" alt="Здесь могла быть ваша реклама">
+
 </body>
+
+
 </html>
