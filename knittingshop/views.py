@@ -1,18 +1,14 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
 # from django.template import loader
+from .models import Item
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 
 
 def index(request):
-    # latest_question_list = Item.objects.order_by('-pub_date')[:5]
-    # context = {
-    #     'latest_question_list': []
-    # }
-    # return render(request, 'knittingshop/index.html', context)
-    return HttpResponse('main page')
+
+    return render(request, 'knittingshop/index.html', {'object': Item.objects.all()[0]})
 
 
 def detail(request, question_id):
@@ -22,3 +18,7 @@ def detail(request, question_id):
 
 def gallery(request):
     return HttpResponse(' gallery')
+
+def testindex(request):
+
+    return render(request, 'knittingshop/testindex.html', {'object': Item.objects.all()[0]})

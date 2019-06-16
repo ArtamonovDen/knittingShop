@@ -1,9 +1,33 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'knittingshop::detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
+<!--example of using-->
+<!--{% if latest_question_list %}-->
+<!--    <ul>-->
+<!--    {% for question in latest_question_list %}-->
+<!--        <li><a href="{% url 'knittingshop::detail' question.id %}">{{ question.question_text }}</a></li>-->
+<!--    {% endfor %}-->
+<!--    </ul>-->
+<!--{% else %}-->
+<!--    <p>No polls are available.</p>-->
+<!--{% endif %}-->
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'knittingshop/styles.css' %}" type="text/css">
+</head>
+<body>
+
+
+<h1>Index page</h1>
+<p>Some text</p>
+{% load static %}
+{% if object %}
+<h2>{{ object.item_name }}</h2>
+<img src ="{% static object.item_main_photo_path %} "/>
 {% endif %}
+</body>
+</html>
