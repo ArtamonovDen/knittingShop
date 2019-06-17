@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link rel="stylesheet" href="test/stylesheet.css" type="text/css"/>
+  <!-- Кодировка веб-страницы -->
+  <meta charset="utf-8">
+  <!-- Настройка viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Подключаем Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="bootstrap.bundle.min.js">
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  <!-- Подключаем шрифт -->
+  <link href="https://fonts.googleapis.com/css?family=Ruthie&display=swap" rel="stylesheet">
+  <title> Knitting shop</title>
+</head>
+
+
+<body >
+
+<style type="text/css">
+  .jumbotron-heading{
+    margin-top:30px;
+  }
+  .lead text-muted{
+    margin-top:20px;
+  }
+  .form{
+    margin-top:10px;
+    margin-left:150px;
+    margin-right: 150px;
+    margin-bottom:40px;"
+  }
+
+
+</style>
+<!-- Navigation -->
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+  <div class="container">
+    <a class="navbar-brand" href="#"><img src="https://cdn.onlinewebfonts.com/svg/img_550363.png" width="35px" alt="On-line shop"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="\">Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="\gallery">Gallery</a>
+        </li>
+        <li class="nav-item active" >
+          <a class="nav-link" href="\contacts">Contacts
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="\profile"><img src="http://cdn.onlinewebfonts.com/svg/img_202755.png" width="20px"> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><img src="https://cdn.onlinewebfonts.com/svg/img_218395.png" width="20px"> </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">How you can contact with me?</h1>
+    <p class="lead text-muted">Type on icon or subsmite the form.</p>
+    <p class="lead text-muted">You can wtite me in the Instagram <a href="www.instagram.com"><img  src="https://bedzrus.co.uk/pub/media/wysiwyg/instagram.png" width="40px"></a> </p>
+
+
+  </div>
+</section>
+
+<form class="form" >
+  <div class="form-group">
+    <label for="exampleInputName2">Name</label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail2">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Write your question here</label>
+    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send invitation</button>
+</form>
+
+
+
+
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="gallery.html">Back to gallery</a>
+    </p>
+    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+    <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+  </div>
+</footer>
+
+<!-- Подключаем jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+<!-- Подключаем плагин Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<!-- Подключаем Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
+
+</body>
+</html>
