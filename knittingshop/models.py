@@ -29,7 +29,7 @@ class UserProfile(models.Model):
     phone = models.PositiveIntegerField(default=0)  # TODO mask
 
     def __str__(self):
-        return self.user.name
+        return self.user.get_full_name()
 
     # basket = models.OneToOneField(Basket)
 

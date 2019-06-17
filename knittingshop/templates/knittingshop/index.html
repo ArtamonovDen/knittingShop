@@ -21,6 +21,7 @@
   <title>Knitting shop</title>
 </head>
 
+{% load static %}
 
 <body >
 <!--Стили, потому что я кривая и у меня не подключаются файлы-->
@@ -107,7 +108,7 @@
     <div class="carousel-inner" role="listbox">
       <!-- Slide One - Set the background image for this slide in the line below -->
       <div class="carousel-item active" >
-        <img class="img-fluid" src="banner1.jpg" alt="banner">
+        <img class="img-fluid" src="{% static 'knittingshop/img/banner1.jpg' %}" alt="banner">
         <div class="carousel-caption d-none d-md-block" >
           <h3 class="display-4">Hello! I'm glad to see you here</h3>
           <p class="lead"></p>
@@ -115,7 +116,7 @@
       </div>
       <!-- Slide Two - Set the background image for this slide in the line below -->
       <div class="carousel-item" >
-        <img class="img-fluid" src="banner2.jpg" alt="banner">
+        <img class="img-fluid" src="{% static 'knittingshop/img/banner2.jpg' %}" alt="banner">
         <div class="carousel-caption d-none d-md-block" >
           <h3 class="display-4">There are a lot of beauty an insperation</h3>
           <p class="lead"></p>
@@ -123,7 +124,7 @@
       </div>
       <!-- Slide Three - Set the background image for this slide in the line below -->
       <div class="carousel-item">
-        <img class="img-fluid" src="banner3.jpg" alt="banner">
+        <img class="img-fluid" src="{% static 'knittingshop/img/banner3.jpg' %}" alt="banner">
         <div class="carousel-caption d-none d-md-block" >
           <h3 class="display-4">let's buy</h3>
           <p class="lead"></p>
