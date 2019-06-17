@@ -120,3 +120,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'  # TODO not for production. deployment tool: fabric
 MEDIA_ROOT = os.path.join(BASE_DIR, 'knittingshop/media')
+
+LOGIN_REDIRECT_URL = '/'
