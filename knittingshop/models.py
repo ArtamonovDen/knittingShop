@@ -11,12 +11,14 @@ class Item(models.Model):
     item_name = models.CharField(max_length=50)
     item_description = models.TextField()
     item_main_photo_path = models.CharField(max_length=120, default="")
+    pub_date = models.DateTimeField('date published', default=timezone.now)
 
     # item_main_photo = models.ImageField(upload_to='img/main/', max_length=255, null=True, blank=True)
     # tem_pictures_list = []
     # TODO pip install Pillow for image field
 
     item_main_photo = models.ImageField(upload_to='item_image', blank=True)
+
 
     def __str__(self):
         return self.item_name
@@ -34,11 +36,14 @@ class UserProfile(models.Model):
     # basket = models.OneToOneField(Basket)
 
 
+class Basket(models.Model):
+    user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    chosen_items = models.ManyToManyField(Item)
+
+
 def create_profile(sender, **kwargs):
     if kwargs['created']:
         user_profile = UserProfile.objects.create(user=kwargs['instance'])
 
 
 post_save.connect(create_profile, sender=User)
-# class Basket(models.Model):
-#     user = models.OneToOneField(UserProfile)

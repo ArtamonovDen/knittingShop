@@ -7,7 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import RegistrationForm
 
 def index(request):
-    return render(request, 'knittingshop/index.html', {'object': Item.objects.all()[0]})
+    last_items_list = Item.objects.order_by('-pub_date')[:3]
+    return render(request, 'knittingshop/index.html', {'last_items': last_items_list})
 
 
 def detail(request, question_id):
@@ -17,7 +18,8 @@ def detail(request, question_id):
 
 
 def gallery(request):
-    return render(request, 'knittingshop/gallery.html')
+    all_items_list = Item.objects.all()
+    return render(request, 'knittingshop/gallery.html', {'all_items_list': all_items_list})
 
 
 def testindex(request):
