@@ -22,7 +22,6 @@ class Item(models.Model):
     def __str__(self):
         return self.item_name
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     description = models.CharField(max_length=100, default='')

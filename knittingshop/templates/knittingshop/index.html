@@ -156,34 +156,20 @@
 
 <!--Cards with bestsellers-->
 <div class="card-deck">
-  <div class="card">
-    <a href="item-1.html">
-    <img class="card-img-top"  src="toy1.jpg" width="10px" alt="Card image cap" >
-    <div class="card-body">
-      <h5 class="card-title" >hedgehogs</h5>
+  {% for item in last_items_list %}
+    <div class="card">
+        <a href="item_view.html">
+        <img class="card-img-top"  src="{{ item.item_main_photo_path }}" width="10px" alt="Card image cap" >
+        <div class="card-body">
+          <h5 class="card-title" >"{{ item.item_name }}"</h5>
       <!--
       <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       -->
-    </div>
-    </a>
-  </div>
-  <div class="card">
-    <a href="item-2.html">
-    <img class="card-img-top"  src="toy2.jpg" width="10px" alt="Card image cap" >
-    <div class="card-body">
-      <h5 class="card-title" >raccoon</h5>
-    </div>
-    </a>
-  </div>
-  <div class="card">
-    <a href="item-3.html">
-      <img class="card-img-top"  src="toy3.jpg" width="10px" alt="Card image cap" >
-      <div class="card-body">
-        <h5 class="card-title" >fox</h5>
+        </div>
+        </a>
       </div>
-    </a>
-  </div>
+    {% endfor %}
 </div>
 <!--footer-->
 

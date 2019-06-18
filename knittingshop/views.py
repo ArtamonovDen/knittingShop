@@ -16,7 +16,6 @@ def index(request):
     last_items_list = Item.objects.order_by('-pub_date')[:3]
     return render(request, 'knittingshop/index.html', {'last_items': last_items_list})
 
-
 def detail(request, item_id):
     # item = get_object_or_404(Item, pk=question_id)
     # return render(request, 'knittingshop/detail.html', {'item': item})
@@ -123,6 +122,10 @@ def change_password(request):
         args = {'form': form}
         return render(request, 'knittingshop/change_password.html', args)
 
+def item_view(request):
+    # TODO add (get a current item)
+    item_to_view = Item.objects.get();
+    return render(request, 'knittingshop/item_view.html', item_to_view)
 
 # TODO
 '''
