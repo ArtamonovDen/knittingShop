@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # from django.template import loader
-from .models import Item
+from .models import Item, Basket, UserProfile
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm, PasswordChangeForm
 from .forms import RegistrationForm, EditProfileForm
 from django.contrib.auth.models import User
-import  django.contrib.auth as auth
+import django.contrib.auth as auth
 from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse
@@ -17,7 +17,7 @@ def index(request):
     return render(request, 'knittingshop/index.html', {'last_items': last_items_list})
 
 
-def detail(request, question_id):
+def detail(request, item_id):
     # item = get_object_or_404(Item, pk=question_id)
     # return render(request, 'knittingshop/detail.html', {'item': item})
     return HttpResponse('item\'s details')
@@ -32,12 +32,35 @@ def contacts(request):
     return render(request, 'knittingshop/contacts.html')
 
 
-def testindex(request):
-    return render(request, 'knittingshop/testindex.html', {'object': Item.objects.all()[0]})
+@login_required
+def basket(request):
+    # if request.method == 'POST':
+    #     form = EditProfileForm(request.POST, instance=request.user)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect(reverse('knittingshop:view_profile'))
+    #     else:
+    #         return redirect(reverse('knittingshop:edit_profile'))  # TODO add error message
+    #
+    # else:
+
+    #get Basket by request.user
+    u = UserProfile.objects.filter(user=User.objects.filter(username=request.user)[0])[0]
+    b = u.basket_set.get()
+    chosen_items = b.chosen_items.all()  # TODO проверить для нескольких
+    args = {'chosen_items': chosen_items}
+    return render(request, 'knittingshop/basket.html', args)
+
+
+def add_to_basket(request, item_id):
+    UserProfile
+    blog = Item.objects.get(pk=item_id)
+    Basket.chosen_items()
 
 
 def login(request):
     return render(request, 'knittingshop/login.html')
+
 
 @login_required
 def logout(request):
@@ -50,6 +73,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            request.user.basket_set.create()
             return redirect(reverse('knittingshop:index'))
         else:
             return HttpResponse('wrong input')  # TODO
@@ -109,3 +133,12 @@ def change_password(request):
 
 @login_required
 '''
+# {% if latest_question_list %}
+#     <ul>
+#     {% for question in latest_question_list %}
+#         <li><a href="{% url 'knittingshop::detail' question.id %}">{{ question.question_text }}</a></li>
+#     {% endfor %}
+#     </ul>
+# {% else %}
+#     <p>No polls are available.</p>
+# {% endif %}
