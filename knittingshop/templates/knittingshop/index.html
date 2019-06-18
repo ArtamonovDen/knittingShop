@@ -159,7 +159,7 @@
   {% for item in last_items_list %}
     <div class="card">
         <a href="item_view.html">
-        <img class="card-img-top"  src="{{ item.item_main_photo_path }}" width="10px" alt="Card image cap" >
+        <img class="card-img-top"  src="{{ item.item_main_photo.url }}" width="10px" alt="Card image cap" >
         <div class="card-body">
           <h5 class="card-title" >"{{ item.item_name }}"</h5>
       <!--
