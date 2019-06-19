@@ -23,11 +23,11 @@
   <title>Knitting shop</title>
    {% endblock%}
 
-{% load static %}
+
 </head>
 
 
-
+{% load static %}
 
 
 <body >
@@ -39,7 +39,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 
   <div class="container">
-    <a class="navbar-brand" href="#"><img src="https://cdn.onlinewebfonts.com/svg/img_550363.png" width="35px" alt="On-line shop"></a>
+    <a class="navbar-brand" href="#"><img src="{% static 'knittingshop/img/knit.png' %}" width="35px" alt="On-line shop"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -63,7 +63,7 @@
         {% endif %}
         <li class="nav-item">
           {% if user.is_authenticated %}
-          <a class="nav-link" href="{% url 'knittingshop:edit_profile' %}"><img src="http://cdn.onlinewebfonts.com/svg/img_202755.png" width="20px"> </a>
+          <a class="nav-link" href="{% url 'knittingshop:edit_profile' %}"><img src="{% static 'knittingshop/img/user.png'%}" alt="account" width="20px"> </a>
           {% else %}
           <a class="nav-link" href="{% url 'knittingshop:login' %}">Sign in</a>
           {% endif %}
@@ -76,7 +76,7 @@
 
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="https://cdn.onlinewebfonts.com/svg/img_218395.png" width="20px"> </a>
+          <a class="nav-link" href="#"><img src="{% static 'knittingshop/img/busket.png' %}" alt="busket" width="20px"> </a>
         </li>
         {% endif %}
 
