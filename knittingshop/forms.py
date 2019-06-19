@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, ReadOnlyPasswordHashField
 from django.forms import ModelForm
 
-from .models import UserProfile
+from .models import UserProfile, Question
 
 
 class RegistrationForm(UserCreationForm):
@@ -45,6 +45,16 @@ class EditProfileForm(ModelForm):
         exclude = ['user']
 
 
+class QuestionForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(QuestionForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = "Name"
+        self.fields['email'].label = "Email"
+        self.fields['question'].label = "Ask your question"
+
+    class Meta:
+        model = Question
+        fields = '__all__'
 
 

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-  {% block head %}
-    <title>Buy</title>
-  {% endblock%}
+{% block head %}
+<title>Buy</title>
+{% endblock%}
 
 {% block styles %}
 <style type="text/css">
@@ -32,23 +32,24 @@
   }
 
 
+
 </style>
-  {% endblock%}
+{% endblock%}
 
 {% block content%}
 <section class="jumbotron text-center">
-  <div class="container">
-    <h1 class="jumbotron-heading">One more step!</h1>
-    <p class="lead text-muted">We need this information to send you a parcel</p>
-  </div>
-<div class="container">
-      <form method="post"  >
+    <div class="container">
+        <h1 class="jumbotron-heading">One more step!</h1>
+        <p class="lead text-muted">We need this information to send you a parcel</p>
+    </div>
+    <div class="container">
+        <form method="post">
             {% csrf_token %}
             {{ formProfile.as_p }}
-        <input type="submit" class="btn btn-primary">
-      </form>
+            <input type="submit" class="btn btn-primary">
+        </form>
 
-</div>
+    </div>
 
 </section>
 

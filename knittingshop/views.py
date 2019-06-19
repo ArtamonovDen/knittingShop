@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.http import HttpResponse
-from .models import Item, UserProfile, Purchase
+
+from .models import Item, UserProfile, Purchase, Question
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm, PasswordChangeForm
-from .forms import RegistrationForm, EditProfileForm, EditUserForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm, PasswordChangeForm, PasswordResetForm
+from .forms import RegistrationForm, EditProfileForm, EditUserForm, QuestionForm
 from django.contrib.auth.models import User
 import django.contrib.auth as auth
 from django.contrib.auth.decorators import login_required
@@ -27,7 +29,21 @@ def gallery(request):
 
 
 def contacts(request):
-    return render(request, 'knittingshop/contacts.html')
+    if request.method == 'POST':
+        # contact = Question.objects.create()
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=True)
+            # print(pro)
+            return redirect(reverse('knittingshop:contacts'))
+        else:
+            return redirect(reverse('knittingshop:contacts'))  # TODO add error message
+    else:
+
+        args = {
+            'form': QuestionForm(),
+        }
+        return render(request, 'knittingshop/contacts.html', args)
 
 
 def login(request):
@@ -44,7 +60,12 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_user = form.save()
+            messages.info(request, "Thanks for registering. You are now logged in.")
+            new_user = auth.authenticate(username=form.cleaned_data['username'],
+                                         password=form.cleaned_data['password1'],
+                                         )
+            auth.login(request, new_user)
             # request.user.basket_set.create()
             return redirect(reverse('knittingshop:index'))
         else:
@@ -78,8 +99,6 @@ def buy(request, item_id):
         return render(request, 'knittingshop/buy.html', args)
 
 
-
-
 def confirm_purchase(request):
     return render(request, 'knittingshop/thanks_for_buying.html')
 
@@ -92,6 +111,7 @@ def view_profile(request):
         return render(request, 'knittingshop/profile.html', args)
     else:
         return redirect('/login')
+
 
 @login_required(login_url='/login/')
 def edit_profile(request):
@@ -107,7 +127,6 @@ def edit_profile(request):
             'formUser': EditUserForm(instance=request.user)
         }
         return render(request, 'knittingshop/edit_profile.html', args)
-
 
 
 @login_required(login_url='/login/')

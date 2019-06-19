@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-  {% block head %}
-    <title>Contacts</title>
-  {% endblock%}
+{% block head %}
+<title>Contacts</title>
+{% endblock%}
 
 {% block styles %}
 
@@ -17,8 +17,30 @@
     margin-top:10px;
     margin-left:150px;
     margin-right: 150px;
-    margin-bottom:40px;"
+    margin-bottom:40px;
   }
+  input {
+      width: 100%;
+      padding: 6px 10px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+      resize: none;
+  }
+  textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+
+
 </style>
 {% endblock%}
 
@@ -26,43 +48,37 @@
 {% block content %}
 
 <section class="jumbotron text-center">
-  <div class="container">
-    <h1 class="jumbotron-heading">How you can contact with me?</h1>
-    <p class="lead text-muted">Type on icon or subsmite the form.</p>
-    <p class="lead text-muted">You can wtite me in the Instagram <a href="www.instagram.com"><img  src="https://bedzrus.co.uk/pub/media/wysiwyg/instagram.png" width="40px"></a> </p>
+    <div class="container">
+        <h1 class="jumbotron-heading">How you can contact with me?</h1>
+        <p class="lead text-muted">Ask your question here</p>
+        <p class="lead text-muted">Follow me <a href="https://www.instagram.com/ri_zarubina/"><img
+                src="https://bedzrus.co.uk/pub/media/wysiwyg/instagram.png" width="40px"></a></p>
 
 
-  </div>
+    </div>
 </section>
 
-<form class="form" >
-  <div class="form-group">
-    <label for="exampleInputName2">Name</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail2">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-  </div>
-  <div class="form-group">
-    <label for="exampleTextarea">Write your question here</label>
-    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Send invitation</button>
+<form class="form" method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.errors }}
+            {{ field.label_tag }}<br> {{ field }}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Send</button>
 </form>
 
 
 
-
-
 <footer class="text-muted">
-  <div class="container">
-    <p class="float-right">
-      <a href="gallery.html">Back to gallery</a>
-    </p>
-    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
-  </div>
+    <div class="container">
+        <p class="float-right">
+            <a href="{% url 'knittingshop:gallery' %}">Back to gallery</a>
+        </p>
+    </div>
 </footer>
 
 {% endblock%}

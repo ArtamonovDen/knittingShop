@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-  {% block head %}
-    <title>Gallery</title>
-  {% endblock%}
+{% block head %}
+<title>Gallery</title>
+{% endblock%}
 
 {% load static %}
 <!--album-->
@@ -48,56 +48,63 @@
   }
 
   .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
 </style>
 {% endblock %}
 
 {% block content %}
 <main role="main">
 
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">Gallery</h1>
-      <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Gallery</h1>
+            <p class="lead text-muted">
+                There are the toys you can buy! or order a new toy with your preferences. You can
+                write me and order a new toy special for you! Question me on the tab &quot;Contacts&quot;
+            </p>
 
-    </div>
-  </section>
+        </div>
+    </section>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-          {% for item in all_items_list %}
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow" style="height: 465px;">
-                <img class="card-img-top" src="{{ item.item_main_photo.url  }}" alt="Card image cap" style="height: 250px;">
-                <div class="card-body">
-                    <div style="height: 150px; overflow: scroll">
-                        <p class="card-text">"{{ item.item_description }}"</p>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {% for item in all_items_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+
+                        <div class="card-body">
+                            <img class="card-img-top" src="{{ item.item_main_photo.url  }}" alt="Card image cap">
+                            <p class="card-text">"{{ item.item_description }}"</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{% url 'knittingshop:detail' item.id %}">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="{% url 'knittingshop:detail' item.id %}">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      </a>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                {% endfor %}
             </div>
-          {% endfor %}
-      </div>
+        </div>
     </div>
-  </div>
 
 </main>
 
 <footer class="text-muted">
-  <div class="container">
-    <p class="float-right">
-      <a href="#">Back to top</a>
-    </p>
-    <p>Bla-bla-bla Bla-bla-bla Bla-bla-bla </p>
-    <p>Bla-bla-blaBla-bla-blaBla-bla-blaBla-bla-blaBla-bla-blaBla-bla-blaBla-bla-blaBla-bla-bla </p>
-  </div>
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>
+            Good materials, love and warm are inside <br>
+            I'm waiting for you on my Instagram
+            <a href="https://www.instagram.com/ri_zarubina/"><img src="{% static 'knittingshop/img/instagram.png' %}" width="20px"></a>
+        </p>
+    </div>
 </footer>
 
 {% endblock %}
