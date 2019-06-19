@@ -75,7 +75,7 @@ def buy(request, item_id):
         profile = UserProfile.objects.get(user=request.user)
         args = {
             'formProfile': EditProfileForm(instance=profile),
-            'item_id': item
+            'item': item
         }
         print(args['formProfile'])
         return render(request, 'knittingshop/buy.html', args)

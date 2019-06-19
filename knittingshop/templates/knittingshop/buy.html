@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
   {% block head %}
-    <title>Account</title>
+    <title>Buy</title>
   {% endblock%}
 
 {% block body %}
@@ -34,16 +34,10 @@
 
 </style>
 
-
-
-
 <section class="jumbotron text-center">
   <div class="container">
-    {{item}}
-    {{item.id}}
-    <h1 class="jumbotron-heading">Personal info</h1>
-    <p class="lead text-muted">Please provide information below for us to send you {{item.item_name}}</p>
-
+    <h1 class="jumbotron-heading">One more step!</h1>
+    <p class="lead text-muted">We need this information to send you a parcel</p>
   </div>
 <div class="container">
       <form method="post"  >
@@ -54,8 +48,6 @@
 
 </div>
 
-
-{{user}}
 </section>
 
 {% endblock %}
