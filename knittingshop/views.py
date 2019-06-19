@@ -1,25 +1,26 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # from django.template import loader
-from .models import Item, Basket, UserProfile
+from .models import Item, UserProfile, Purchase
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm, PasswordChangeForm
-from .forms import RegistrationForm, EditProfileForm
+from .forms import RegistrationForm, EditProfileForm, EditUserForm
 from django.contrib.auth.models import User
 import django.contrib.auth as auth
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from django.urls import reverse
 
 
 def index(request):
-    last_items_list = Item.objects.order_by('-pub_date')[:3]
-    return render(request, 'knittingshop/index.html', {'last_items': last_items_list})
+    last_items_list = Item.objects.order_by('-item_pub_date')[:3]
+    print(last_items_list)
+    return render(request, 'knittingshop/index.html', {'last_items_list': last_items_list})
+
 
 def detail(request, item_id):
-    # item = get_object_or_404(Item, pk=question_id)
-    # return render(request, 'knittingshop/detail.html', {'item': item})
-    return HttpResponse('item\'s details')
+    item = Item.objects.get(id=item_id)
+    return render(request, 'knittingshop/detail.html', {'item': item})
 
 
 def gallery(request):
@@ -31,37 +32,11 @@ def contacts(request):
     return render(request, 'knittingshop/contacts.html')
 
 
-@login_required
-def basket(request):
-    # if request.method == 'POST':
-    #     form = EditProfileForm(request.POST, instance=request.user)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect(reverse('knittingshop:view_profile'))
-    #     else:
-    #         return redirect(reverse('knittingshop:edit_profile'))  # TODO add error message
-    #
-    # else:
-
-    #get Basket by request.user
-    u = UserProfile.objects.filter(user=User.objects.filter(username=request.user)[0])[0]
-    b = u.basket_set.get()
-    chosen_items = b.chosen_items.all()  # TODO проверить для нескольких
-    args = {'chosen_items': chosen_items}
-    return render(request, 'knittingshop/basket.html', args)
-
-
-def add_to_basket(request, item_id):
-    UserProfile
-    blog = Item.objects.get(pk=item_id)
-    Basket.chosen_items()
-
-
 def login(request):
     return render(request, 'knittingshop/login.html')
 
 
-@login_required
+@login_required(login_url='/login/')
 def logout(request):
     auth.logout(request)
     return redirect(reverse('knittingshop:index'))
@@ -72,7 +47,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            request.user.basket_set.create()
+            # request.user.basket_set.create()
             return redirect(reverse('knittingshop:index'))
         else:
             return HttpResponse('wrong input')  # TODO
@@ -82,50 +57,106 @@ def register(request):
         return render(request, 'knittingshop/reg_form.html', args)
 
 
+@login_required(login_url='/login/')
+def buy(request, item_id):
+    profile = UserProfile.objects.get(user=request.user)  # TODO check profile existence
+    item = Item.objects.get(id=item_id)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=True)
+            chosen_item = item
+            # user = UserProfile.objects.get(user=request.user)
+            purchase = profile.purchase_set.create(chosen_item=chosen_item)
+            return redirect(reverse('knittingshop:thanks_for_buying'))
+        else:
+            return redirect(reverse('knittingshop:{}/buy'.format(item_id)))  # TODO add error message
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        args = {
+            'formProfile': EditProfileForm(instance=profile),
+            'item_id': item
+        }
+        print(args['formProfile'])
+        return render(request, 'knittingshop/buy.html', args)
+    print(request.user)
+    # args = {
+    #     'item': Item.objects.get(id=item_id),
+    #     'user': UserProfile.objects.get(user=request.user)
+    # }
+    #
+    # return render(request, 'knittingshop/buy.html', args)
+
+
+def confirm_purchase(request):
+    return render(request, 'knittingshop/thanks_for_buying.html')
+
+
 def view_profile(request):
     if request.user.is_authenticated:
-        args = {'user': request.user}
+        print(request.user)
+        profile = UserProfile.objects.get(user=request.user)
+        args = {'user': profile}
         return render(request, 'knittingshop/profile.html', args)
     else:
         return redirect('/login')
 
 
-@login_required
+@login_required(login_url='/login/')
+def add_profile(request):
+    if request.method == 'POST':
+        form = EditUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('knittingshop:add_profile'))
+        else:
+            return redirect(reverse('knittingshop:add_profile'))  # TODO add error message
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        args = {
+            'formUser': EditProfileForm(instance=profile)
+        }
+        return render(request, 'knittingshop/add_profile.html', args)
+
+
+@login_required(login_url='/login/')
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditUserForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect(reverse('knittingshop:view_profile'))
         else:
             return redirect(reverse('knittingshop:edit_profile'))  # TODO add error message
-
     else:
-        form = EditProfileForm(instance=request.user)
-        args = {'form': form}
+        args = {
+            'formUser': EditUserForm(instance=request.user)
+        }
         return render(request, 'knittingshop/edit_profile.html', args)
 
 
-@login_required
+# profile = UserProfile.objects.get(user=request.user)
+# form = EditProfileForm(request.POST, instance=profile)
+# if form.is_valid():
+#     form.save()
+#     return redirect(reverse('knittingshop:view_profile'))
+# else:
+@login_required(login_url='/login/')
 def change_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.POST, user=request.user)
+        form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
-            form.save()
-            auth.update_session_auth_hash(request, form.user)
-            return redirect(reverse('knittingshop:profile'))
+            user = form.save()
+            auth.update_session_auth_hash(request, user)
+            return render(request, 'knittingshop/password_change_done.html')
         else:
-            return redirect(reverse('knittingshop:change_password'))  # TODO add error message
+            return render(request, 'knittingshop/change_password.html', {'form': form})
 
     else:
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request, 'knittingshop/change_password.html', args)
 
-def item_view(request):
-    # TODO add (get a current item)
-    item_to_view = Item.objects.get();
-    return render(request, 'knittingshop/item_view.html', item_to_view)
 
 # TODO
 '''

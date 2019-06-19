@@ -139,11 +139,13 @@
       <p>  Размеры около 20 и 10 сантиметров, но я не уверена</p>
       <p> Скорее жмяяяякать на кнопку ниже!!!</p>
 
+{{item}}
 
-      <button type="button" class="btn btn-outline-danger">
-        Add to
-        <img src="https://cdn.onlinewebfonts.com/svg/img_218395.png" width="15px">
-      </button>
+{{item.id}}
+      <form action="{% url   'knittingshop:buy' item.id %}">
+        <input type="submit" value="Buy" />
+      </form>
+
     </div>
 
 

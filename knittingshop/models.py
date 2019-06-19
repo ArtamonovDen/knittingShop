@@ -11,7 +11,7 @@ class Item(models.Model):
     item_name = models.CharField(max_length=50)
     item_description = models.TextField()
     item_main_photo = models.ImageField(upload_to='item_image', blank=True)
-    pub_date = models.DateTimeField('date published', default=timezone.now)
+    item_pub_date = models.DateTimeField('date published', default=timezone.now)
     item_price = models.PositiveIntegerField(default=25)  # TODO django-money
     item_size = models.PositiveIntegerField(default=25)
     item_tools = models.CharField(max_length=120, default="")
@@ -40,9 +40,13 @@ class Item(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    description = models.CharField(max_length=100, default='')
+    country = models.CharField(max_length=100, default='')
     city = models.CharField(max_length=100, default='')
-    phone = models.PositiveIntegerField(default=0)  # TODO mask
+    street = models.CharField(max_length=100, default='')
+    home = models.PositiveIntegerField(default=0)
+    apartment = models.PositiveIntegerField(default=0)
+    phone = models.PositiveIntegerField(default=0)  # TODO django-phonenumber-field
+    zip = models.PositiveIntegerField(default=0)
 
     # basket  =models.OneToOneField(Basket, on_delete=models.CASCADE)
 
@@ -57,10 +61,13 @@ class UserProfile(models.Model):
     # Basket.objects.filter(user = u)
 
 
-class Basket(models.Model):
+class Purchase(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    chosen_item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    purchase_date = models.DateTimeField('purchase date', default=timezone.now)
 
-    chosen_items = models.ManyToManyField(Item)
+    def __str__(self):
+        return '{}  buys {}'.format(self.user.__str__(), self.chosen_item.__str__())
 
     # i = Items.objects.get(pk = pk)
     # b.chosen_items.add(i)
@@ -68,8 +75,6 @@ class Basket(models.Model):
 
     # Publication.objects.get(id=4).article_set.all()
     # Article.objects.filter(publications__id=1)
-    def __str__(self):
-        return '{}\'s basket '.format(self.user.__str__())
 
 
 def create_profile(sender, **kwargs):

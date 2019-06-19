@@ -36,24 +36,26 @@
 
 
 
+
 <section class="jumbotron text-center">
   <div class="container">
+    {{item}}
+    {{item.id}}
     <h1 class="jumbotron-heading">Personal info</h1>
-    <p class="lead text-muted">You can change or add information here.</p>
+    <p class="lead text-muted">Please provide information below for us to send you {{item.item_name}}</p>
 
   </div>
-
-
 <div class="container">
       <form method="post"  >
             {% csrf_token %}
-            {{ formUser.as_p }}
-        <button type="submit" class="btn btn-primary">Change</button>
+            {{ formProfile.as_p }}
+        <input type="submit" class="btn btn-primary">
       </form>
-    <div class="text-center">Click  <a href="{% url 'knittingshop:change_password' %}"> here </a> to change your password</div>
 
 </div>
 
+
+{{user}}
 </section>
 
 {% endblock %}

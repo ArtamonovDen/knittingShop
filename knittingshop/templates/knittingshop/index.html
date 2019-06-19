@@ -160,14 +160,14 @@
     <div class="card">
         <a href="item_view.html">
         <img class="card-img-top"  src="{{ item.item_main_photo.url }}" width="10px" alt="Card image cap" >
+          </a>
         <div class="card-body">
           <h5 class="card-title" >"{{ item.item_name }}"</h5>
-      <!--
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      -->
+
+      <p class="card-text">{{item.item_description}}</p>
+
         </div>
-        </a>
+
       </div>
     {% endfor %}
 </div>

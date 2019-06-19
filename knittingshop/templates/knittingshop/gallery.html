@@ -122,7 +122,7 @@
                   <p class="card-text">"{{ item.item_description }}"</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="item_view.html">
+                      <a href="{% url 'knittingshop:detail' item.id %}">
                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                       </a>
                     </div>
