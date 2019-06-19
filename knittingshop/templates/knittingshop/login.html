@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-  {% block head %}
-    <title>Log in</title>
-  {% endblock%}
+{% block head %}
+<title>Log in</title>
+{% endblock%}
 
 {% block styles %}
 
@@ -21,21 +21,22 @@
     margin: 0 0 15px;
   }
 
+
 </style>
 {% endblock%}
 
 {% block content %}
 <div class="login-form">
-  <form method="post">
-      <h2 class="text-center">Log in</h2>
-      {% csrf_token %}
-      {{ form.as_p }}
+    <form method="post">
+        <h2 class="text-center">Log in</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block">Log in</button>
-    </div>
-  </form>
-  <p class="text-center"><a href="{% url 'knittingshop:register' %}">Create an Account</a></p>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+    </form>
+    <p class="text-center"><a href="{% url 'knittingshop:register' %}">Create an Account</a></p>
 </div>
 
 

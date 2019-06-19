@@ -30,16 +30,13 @@ def gallery(request):
 
 def contacts(request):
     if request.method == 'POST':
-        # contact = Question.objects.create()
         form = QuestionForm(request.POST)
         if form.is_valid():
-            form = form.save(commit=True)
-            # print(pro)
+            question = form.save(commit=True)
             return redirect(reverse('knittingshop:contacts'))
         else:
-            return redirect(reverse('knittingshop:contacts'))  # TODO add error message
+            return redirect(reverse('knittingshop:contacts'))
     else:
-
         args = {
             'form': QuestionForm(),
         }
@@ -66,10 +63,11 @@ def register(request):
                                          password=form.cleaned_data['password1'],
                                          )
             auth.login(request, new_user)
-            # request.user.basket_set.create()
             return redirect(reverse('knittingshop:index'))
         else:
-            return HttpResponse('wrong input')  # TODO
+            args = {'form': form,
+                    'error_msg': 'Please try again'}
+            return render(request, 'knittingshop/reg_form.html', args)
     else:
         form = RegistrationForm()
         args = {'form': form}
@@ -78,7 +76,7 @@ def register(request):
 
 @login_required(login_url='/login/')
 def buy(request, item_id):
-    profile = UserProfile.objects.get(user=request.user)  # TODO check profile existence
+    profile = UserProfile.objects.get(user=request.user)
     item = Item.objects.get(id=item_id)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=profile)
@@ -89,7 +87,7 @@ def buy(request, item_id):
             purchase = profile.purchase_set.create(chosen_item=chosen_item)
             return redirect(reverse('knittingshop:thanks_for_buying'))
         else:
-            return redirect(reverse('knittingshop:{}/buy'.format(item_id)))  # TODO add error message
+            return redirect(reverse('knittingshop:{}/buy'.format(item_id)))
     else:
         profile = UserProfile.objects.get(user=request.user)
         args = {
@@ -103,16 +101,6 @@ def confirm_purchase(request):
     return render(request, 'knittingshop/thanks_for_buying.html')
 
 
-def view_profile(request):
-    if request.user.is_authenticated:
-        print(request.user)
-        profile = UserProfile.objects.get(user=request.user)
-        args = {'user': profile}
-        return render(request, 'knittingshop/profile.html', args)
-    else:
-        return redirect('/login')
-
-
 @login_required(login_url='/login/')
 def edit_profile(request):
     if request.method == 'POST':
@@ -121,7 +109,7 @@ def edit_profile(request):
             form.save()
             return redirect(reverse('knittingshop:view_profile'))
         else:
-            return redirect(reverse('knittingshop:edit_profile'))  # TODO add error message
+            return redirect(reverse('knittingshop:edit_profile'))
     else:
         args = {
             'formUser': EditUserForm(instance=request.user)

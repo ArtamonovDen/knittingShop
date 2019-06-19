@@ -30,10 +30,6 @@ class Item(models.Model):
     item_spec_price = models.PositiveIntegerField(default=15)  # TODO django-money
     item_spec_cond = models.CharField(max_length=120, default="", blank=True)
 
-    # item_main_photo = models.ImageField(upload_to='img/main/', max_length=255, null=True, blank=True)
-    # tem_pictures_list = []
-    # TODO pip install Pillow for image field
-
     def __str__(self):
         return self.item_name
 
@@ -76,4 +72,3 @@ def create_profile(sender, **kwargs):
 
 
 post_save.connect(create_profile, sender=User)
-
