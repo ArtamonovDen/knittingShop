@@ -6,7 +6,6 @@ from django.utils import timezone
 
 from django.db.models.signals import post_save
 
-
 class Item(models.Model):
     item_name = models.CharField(max_length=50)
     item_description = models.TextField()
@@ -20,7 +19,8 @@ class Item(models.Model):
         max_length=30,
         choices=[
             ('Available', 'Available'),
-            ('In stock', 'In stock')
+            ('In order', 'In order'),
+            ('Not available', 'Not available')
         ],
         default='Available'
     )

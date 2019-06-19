@@ -67,10 +67,12 @@
       <div class="row">
           {% for item in all_items_list %}
             <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" src="{{ item.item_main_photo.url  }}" alt="Card image cap">
+              <div class="card mb-4 box-shadow" style="height: 465px;">
+                <img class="card-img-top" src="{{ item.item_main_photo.url  }}" alt="Card image cap" style="height: 250px;">
                 <div class="card-body">
-                  <p class="card-text">"{{ item.item_description }}"</p>
+                    <div style="height: 150px; overflow: scroll">
+                        <p class="card-text">"{{ item.item_description }}"</p>
+                    </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="{% url 'knittingshop:detail' item.id %}">
