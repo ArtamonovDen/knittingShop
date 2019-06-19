@@ -19,7 +19,6 @@ urlpatterns = [
                   path('register/', views.register, name='register'),
                   path('profile/', views.view_profile, name='view_profile'),
                   path('profile/edit/', views.edit_profile, name='edit_profile'),
-                  path('profile/add/', views.add_profile, name='add_profile'),
                   path('change-password/', views.change_password, name='change_password')
 
                   # path('reset-password/',
