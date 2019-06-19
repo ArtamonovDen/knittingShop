@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.http import HttpResponse
 
 from .models import Item, UserProfile, Purchase, Question
 from django.shortcuts import render, redirect
